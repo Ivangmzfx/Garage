@@ -13,11 +13,8 @@
         }
 
         body {
-            /* fibra de carbono desde URL: cambiá la URL de abajo por la tuya */
-            background-color: #121212; /* respaldo si la imagen no carga */
-            background-image: url('https://tse2.mm.bing.net/th/id/OIP.32XbZzAQWqGtB0iCXShB3QHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3');
-            background-repeat: repeat; /* es una textura: se repite en mosaico */
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #111 0%, #1e1e1e 100%);
             color: #fff;
             min-height: 100vh;
             padding: 20px;
@@ -27,9 +24,10 @@
         .header {
             text-align: center;
             padding: 50px 20px 40px;
+            background: rgba(0, 0, 0, 0.35);
             border-radius: 20px;
             margin-bottom: 40px;
-            border: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
  .nav {
@@ -78,8 +76,8 @@
         }
 
         .header p {
-            color: rgba(255, 255, 255, 0.5);
             font-size: 1.05em;
+            color: #888;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
@@ -278,7 +276,8 @@
         }
 
         /* ── BORRAR TARJETA PROPIA ── */
-        .delete-btn {
+        .delete-btn,
+        .edit-btn {
             position: absolute;
             top: 12px;
             left: 12px;
@@ -297,9 +296,14 @@
         }
 
         .vehicle-card:hover .delete-btn,
-        .delete-btn:focus-visible { opacity: 1; }
+        .vehicle-card:hover .edit-btn,
+        .delete-btn:focus-visible,
+        .edit-btn:focus-visible { opacity: 1; }
+        .delete-btn { left: 52px; }
         .delete-btn:hover { background: #ff6b6b; }
-        @media (hover: none) { .delete-btn { opacity: 1; } }
+        .edit-btn { font-size: 1.1em; }
+        .edit-btn:hover { background: #4ecdc4; color: #000; }
+        @media (hover: none) { .delete-btn, .edit-btn { opacity: 1; } }
 
         /* ── MODAL ── */
         .modal-backdrop {
@@ -362,12 +366,26 @@
             letter-spacing: normal;
         }
 
+        /* menús desplegables: fondo sólido para que las opciones se lean */
+        .modal select {
+            background-color: #2a2a2a;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .modal select option {
+            background-color: #2a2a2a;
+            color: #fff;
+        }
+
         .modal input:focus,
         .modal select:focus { outline: none; border-color: #4ecdc4; }
 
-        .modal .row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
-        .modal .row input { margin-top: 0; min-width: 0; }
+        .modal .row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; align-items: center; }
+        .modal .row input,
+        .modal .row select { margin-top: 0; min-width: 0; width: auto; flex: 1 1 0; }
         .modal .row input[type="number"] { max-width: 90px; }
+        .modal .row .spec-custom { flex: 1 1 100%; }
 
         .row-x {
             flex-shrink: 0;
@@ -411,169 +429,13 @@
 
         .btn.primary { background: #4ecdc4; border-color: #4ecdc4; color: #000; }
         .btn:hover { filter: brightness(1.15); }
-
-        /* ═════════════ ESTILO URBANO (simple) ═════════════
-           (si no te gusta, borrá todo este bloque y vuelve el estilo anterior) */
-        :root {
-            --acento: #f5ff00;   /* único color fuerte: amarillo flúo */
-            --negro:  #0c0c0c;
-        }
-
-        /* grano muy suave, tipo asfalto */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 50;
-            pointer-events: none;
-            opacity: 0.08;
-            mix-blend-mode: overlay;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-        }
-
-        /* header */
-        .header h1 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 4em;
-            letter-spacing: 8px;
-            background: none;
-            -webkit-text-fill-color: #fff;
-            color: #fff;
-            text-transform: uppercase;
-        }
-
-        .header p {
-            color: rgba(255, 255, 255, 0.55);
-            letter-spacing: 4px;
-        }
-
-        .header::after {
-            content: '';
-            display: block;
-            width: 70px;
-            height: 3px;
-            margin: 30px auto 0;
-            background: var(--acento);
-        }
-
-        /* filtros: texto con subrayado */
-        .filter-btn {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.3em;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        .filter-btn:hover,
-        .filter-btn.active {
-            color: var(--acento);
-            border-bottom-color: var(--acento);
-        }
-
-        /* tarjetas */
-        .vehicle-card {
-            background: rgba(10, 10, 10, 0.88);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            border-radius: 2px;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .vehicle-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--acento);
-            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6);
-        }
-
-        .vehicle-image::after { background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 55%); }
-
-        .vehicle-badge {
-            background: #000;
-            color: var(--acento);
-            border: 1px solid var(--acento);
-            border-radius: 0;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1em;
-            letter-spacing: 2px;
-            padding: 3px 12px;
-        }
-
-        .vehicle-name {
-            color: #fff;
-            font-size: 2.2em;
-            letter-spacing: 3px;
-        }
-        .vehicle-model { color: #999; }
-
-        .spec-item {
-            border-radius: 0;
-            border-left: 2px solid var(--acento);
-        }
-
-        .stats-bar { border-top: 1px solid rgba(255, 255, 255, 0.14); }
-        .stat-bar {
-            height: 4px;
-            border-radius: 0;
-            background: rgba(255, 255, 255, 0.12);
-        }
-        .stat-fill {
-            border-radius: 0;
-            background: var(--acento);
-        }
-
-        /* botón + */
-        .add-card {
-            border: 1px dashed rgba(255, 255, 255, 0.3);
-            border-radius: 2px;
-            background: rgba(0, 0, 0, 0.5);
-            color: rgba(255, 255, 255, 0.7);
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4em;
-            letter-spacing: 3px;
-        }
-        .add-card:hover,
-        .add-card:focus-visible {
-            transform: translateY(-6px);
-            background: rgba(0, 0, 0, 0.7);
-            border-color: var(--acento);
-            color: var(--acento);
-        }
-
-        .delete-btn { border-radius: 2px; background: #000; border: 1px solid rgba(255, 255, 255, 0.4); }
-        .delete-btn:hover { background: #c0392b; }
-
-        /* modal */
-        .modal {
-            background: var(--negro);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 2px;
-        }
-        .modal h2 {
-            color: #fff;
-            letter-spacing: 3px;
-        }
-        .modal input,
-        .modal select { border-radius: 2px; }
-        .modal input:focus,
-        .modal select:focus { border-color: var(--acento); }
-        .row-x { border-radius: 2px; }
-        .row-x:hover { background: #c0392b; }
-        .link-btn { color: var(--acento); }
-        .btn {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.15em;
-            letter-spacing: 2px;
-            border-radius: 2px;
-        }
-        .btn.primary { background: var(--acento); border-color: var(--acento); color: #000; }
-
-        @media (max-width: 768px) {
-            .header h1 { font-size: 2.6em; letter-spacing: 4px; }
-        }
     </style>
 </head>
 <body>
 <header>
     <div class="header">
         <h1>🏁 Mi Garaje Soñado 🏁</h1>
+        <p>Los fierros que quiero tener</p>
         <nav class="nav">
         <ul class="nav-links">
       <li><button class="filter-btn active" data-filter="todos">Todos</button></li>
@@ -1241,7 +1103,7 @@
             <h2 id="modalTitle">Añadir vehículo</h2>
             <form id="addForm">
                 <label>Nombre
-                    <input id="f-nombre" required maxlength="40" placeholder="Ej: Infiniti G37">
+                    <input id="f-nombre" required maxlength="60" placeholder="Ej: Infiniti G37">
                 </label>
                 <label>Categoría
                     <select id="f-cat">
@@ -1261,6 +1123,7 @@
                 <div id="statRows"></div>
                 <button type="button" class="link-btn" id="addStat">+ Agregar barra</button>
                 <div class="actions">
+                    <button type="button" class="btn" id="restoreBtn" style="margin-right:auto" hidden>Volver al original</button>
                     <button type="button" class="btn" id="cancelBtn">Cancelar</button>
                     <button type="submit" class="btn primary">Guardar</button>
                 </div>
@@ -1270,7 +1133,10 @@
 
     <script>
         const CLAVE = 'garaje_vehiculos_propios';
+        const CLAVE_EDIC = 'garaje_ediciones';
         const ETIQUETAS = { 'deportivo': 'Deportivo', 'off-road': 'Off-Road', 'moto': 'Moto', 'camioneta': 'Camioneta' };
+        const DATOS = ['Potencia', 'Motor', 'Torque', 'Velocidad Máx.', '0–100 km/h', 'Consumo',
+                       'Tracción', 'Cilindrada', 'Peso', 'Carga Máx.', 'F. Remolque', 'Caja'];
 
         const grid = document.querySelector('.garage-container');
         const addTile = document.getElementById('addTile');
@@ -1279,7 +1145,10 @@
         const form = document.getElementById('addForm');
         const specRows = document.getElementById('specRows');
         const statRows = document.getElementById('statRows');
+        const restoreBtn = document.getElementById('restoreBtn');
         let filtroActual = 'todos';
+        let editando = null;      // { card, esBase, id } cuando estás editando una tarjeta
+        const originales = {};    // copia de las tarjetas escritas en el código, para "Volver al original"
 
         /* ── helpers ── */
         function el(tag, clase, texto) {
@@ -1289,16 +1158,27 @@
             return n;
         }
 
-        function cargar() {
+        function leer(clave, defecto) {
             try {
-                const d = JSON.parse(localStorage.getItem(CLAVE));
-                return Array.isArray(d) ? d : [];
-            } catch (e) { return []; }
+                const d = JSON.parse(localStorage.getItem(clave));
+                return d === null || d === undefined ? defecto : d;
+            } catch (e) { return defecto; }
         }
 
-        function guardar(lista) {
-            try { localStorage.setItem(CLAVE, JSON.stringify(lista)); return true; }
+        function escribir(clave, valor) {
+            try { localStorage.setItem(clave, JSON.stringify(valor)); return true; }
             catch (e) { return false; }
+        }
+
+        function cargar() { const d = leer(CLAVE, []); return Array.isArray(d) ? d : []; }
+        function guardar(lista) { return escribir(CLAVE, lista); }
+
+        let ediciones = leer(CLAVE_EDIC, {});   // cambios hechos a las tarjetas escritas en el código
+        if (typeof ediciones !== 'object' || Array.isArray(ediciones)) ediciones = {};
+        function guardarEdiciones() { return escribir(CLAVE_EDIC, ediciones); }
+
+        function avisarSiFalla(ok) {
+            if (!ok) alert('No pude guardarlo en este navegador, así que va a desaparecer al recargar la página.');
         }
 
         /* ── barras y filtro ── */
@@ -1327,23 +1207,53 @@
             });
         });
 
-        /* ── tarjetas propias ── */
-        function crearTarjeta(v) {
-            const card = el('div', 'vehicle-card custom');
-            card.dataset.category = v.categoria;
-            card.dataset.id = v.id;
+        /* ── leer los datos de una tarjeta ya dibujada ── */
+        function leerTarjeta(card) {
+            const bg = card.querySelector('.vehicle-image').style.backgroundImage || '';
+            return {
+                nombre: card.querySelector('.vehicle-name').textContent.trim(),
+                categoria: card.dataset.category,
+                imagen: bg.replace(/^url\(["']?/, '').replace(/["']?\)$/, ''),
+                specs: [...card.querySelectorAll('.spec-item')].map(i => ({
+                    label: i.querySelector('.spec-label').textContent.trim(),
+                    value: i.querySelector('.spec-value').textContent.trim()
+                })),
+                stats: [...card.querySelectorAll('.stat')].map(st => ({
+                    name: st.querySelector('.stat-name span').textContent.trim(),
+                    pct: parseInt(st.querySelector('.stat-fill').dataset.width, 10) || 0
+                }))
+            };
+        }
 
-            const del = el('button', 'delete-btn', '×');
-            del.type = 'button';
-            del.title = 'Borrar';
-            del.addEventListener('click', e => {
-                e.stopPropagation();
-                if (confirm('¿Borrar "' + v.nombre + '"?')) {
-                    guardar(cargar().filter(x => x.id !== v.id));
-                    card.remove();
-                }
-            });
-            card.appendChild(del);
+        /* ── dibujar tarjetas ── */
+        function botonEditar(card) {
+            const b = el('button', 'edit-btn', '✎');
+            b.type = 'button';
+            b.title = 'Editar';
+            b.addEventListener('click', e => { e.stopPropagation(); abrirModal(card); });
+            return b;
+        }
+
+        function crearTarjeta(v) {
+            const card = el('div', v.base ? 'vehicle-card' : 'vehicle-card custom');
+            card.dataset.category = v.categoria;
+            if (v.base) card.dataset.baseKey = v.id; else card.dataset.id = v.id;
+
+            card.appendChild(botonEditar(card));
+
+            if (!v.base) {
+                const del = el('button', 'delete-btn', '×');
+                del.type = 'button';
+                del.title = 'Borrar';
+                del.addEventListener('click', e => {
+                    e.stopPropagation();
+                    if (confirm('¿Borrar "' + v.nombre + '"?')) {
+                        guardar(cargar().filter(x => x.id !== v.id));
+                        card.remove();
+                    }
+                });
+                card.appendChild(del);
+            }
 
             const img = el('div', 'vehicle-image');
             if (/^(https?:|data:image\/)/i.test(v.imagen)) {
@@ -1397,28 +1307,90 @@
             return x;
         }
 
-        function filaSpec() {
+        function filaSpec(label, valorInicial) {
             const r = el('div', 'row');
-            const a = el('input'); a.placeholder = 'Dato (ej: Potencia)'; a.maxLength = 24;
-            const b = el('input'); b.placeholder = 'Valor (ej: 200 HP)'; b.maxLength = 24;
-            r.append(a, b, botonQuitar(r));
+
+            const sel = el('select', 'spec-select');
+            DATOS.forEach(d => {
+                const o = el('option', '', d);
+                o.value = d;
+                sel.appendChild(o);
+            });
+            const otro = el('option', '', 'Otro…');
+            otro.value = '__otro';
+            sel.appendChild(otro);
+
+            const valor = el('input', 'spec-valor');
+            valor.placeholder = 'Valor (ej: 200 HP)';
+            valor.maxLength = 40;
+
+            const custom = el('input', 'spec-custom');
+            custom.placeholder = 'Nombre del dato';
+            custom.maxLength = 30;
+
+            if (label) {
+                // editando: elige el dato del menú, o "Otro…" si no está en la lista
+                const conocido = DATOS.find(d => d.toLowerCase() === label.toLowerCase());
+                if (conocido) { sel.value = conocido; }
+                else { sel.value = '__otro'; custom.value = label; }
+                valor.value = valorInicial || '';
+            } else {
+                // fila nueva: el primer dato que todavía no usaste
+                const usados = [...specRows.querySelectorAll('.spec-select')].map(x => x.value);
+                sel.value = DATOS.find(d => !usados.includes(d)) || '__otro';
+            }
+
+            const mostrarCustom = () => {
+                custom.style.display = sel.value === '__otro' ? 'block' : 'none';
+            };
+            sel.addEventListener('change', () => {
+                mostrarCustom();
+                if (sel.value === '__otro') custom.focus();
+            });
+            mostrarCustom();
+
+            r.append(sel, valor, botonQuitar(r), custom);
             specRows.appendChild(r);
         }
 
-        function filaStat() {
+        function filaStat(nombre, pct) {
             const r = el('div', 'row');
-            const a = el('input'); a.placeholder = 'Barra (ej: Facha)'; a.maxLength = 24;
+            const a = el('input'); a.placeholder = 'Barra (ej: Facha)'; a.maxLength = 30;
             const b = el('input'); b.type = 'number'; b.min = 0; b.max = 100; b.placeholder = '%';
+            if (nombre) { a.value = nombre; b.value = pct; }
             r.append(a, b, botonQuitar(r));
             statRows.appendChild(r);
         }
 
-        function abrirModal() {
+        // abrirModal()      -> añadir un vehículo nuevo
+        // abrirModal(card)  -> editar esa tarjeta
+        function abrirModal(card) {
             form.reset();
             specRows.innerHTML = '';
             statRows.innerHTML = '';
-            filaSpec(); filaSpec(); filaStat();
-            if (filtroActual !== 'todos') document.getElementById('f-cat').value = filtroActual;
+            restoreBtn.hidden = true;
+            editando = null;
+
+            if (card) {
+                const v = leerTarjeta(card);
+                const esBase = !!card.dataset.baseKey;
+                editando = { card, esBase, id: esBase ? card.dataset.baseKey : card.dataset.id };
+
+                document.getElementById('modalTitle').textContent = 'Editar vehículo';
+                document.getElementById('f-nombre').value = v.nombre;
+                document.getElementById('f-cat').value = v.categoria;
+                document.getElementById('f-img').value = v.imagen;
+                v.specs.forEach(sp => filaSpec(sp.label, sp.value));
+                if (!v.specs.length) filaSpec();
+                v.stats.forEach(st => filaStat(st.name, st.pct));
+                if (!v.stats.length) filaStat();
+                restoreBtn.hidden = !(esBase && ediciones[editando.id]);
+            } else {
+                document.getElementById('modalTitle').textContent = 'Añadir vehículo';
+                filaSpec(); filaSpec(); filaStat();
+                if (filtroActual !== 'todos') document.getElementById('f-cat').value = filtroActual;
+            }
+
             modal.hidden = false;
             document.body.style.overflow = 'hidden';
             document.getElementById('f-nombre').focus();
@@ -1427,14 +1399,25 @@
         function cerrarModal() {
             modal.hidden = true;
             document.body.style.overflow = '';
+            editando = null;
         }
 
-        addTile.addEventListener('click', abrirModal);
-        document.getElementById('addSpec').addEventListener('click', filaSpec);
-        document.getElementById('addStat').addEventListener('click', filaStat);
+        addTile.addEventListener('click', () => abrirModal());
+        document.getElementById('addSpec').addEventListener('click', () => filaSpec());
+        document.getElementById('addStat').addEventListener('click', () => filaStat());
         document.getElementById('cancelBtn').addEventListener('click', cerrarModal);
         modal.addEventListener('click', e => { if (e.target === modal) cerrarModal(); });
         document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) cerrarModal(); });
+
+        function mostrarTarjeta(card, categoria) {
+            // si estás filtrando otra categoría, cambia a la de la tarjeta
+            if (filtroActual !== 'todos' && filtroActual !== categoria) {
+                document.querySelector('.filter-btn[data-filter="' + categoria + '"]').click();
+            } else {
+                aplicarFiltro();
+            }
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
 
         form.addEventListener('submit', e => {
             e.preventDefault();
@@ -1442,18 +1425,19 @@
             if (!nombre) return;
 
             const specs = [...specRows.children].map(r => {
-                const i = r.querySelectorAll('input');
-                return { label: i[0].value.trim(), value: i[1].value.trim() };
-            }).filter(s => s.label && s.value);
+                const sel = r.querySelector('.spec-select');
+                const label = sel.value === '__otro' ? r.querySelector('.spec-custom').value.trim() : sel.value;
+                return { label, value: r.querySelector('.spec-valor').value.trim() };
+            }).filter(sp => sp.label && sp.value);
 
             const stats = [...statRows.children].map(r => {
                 const i = r.querySelectorAll('input');
                 const n = parseInt(i[1].value, 10);
                 return { name: i[0].value.trim(), pct: Math.min(100, Math.max(0, n)) };
-            }).filter(s => s.name && !isNaN(s.pct));
+            }).filter(st => st.name && !isNaN(st.pct));
 
             const v = {
-                id: Date.now().toString(36),
+                id: editando ? editando.id : Date.now().toString(36),
                 nombre,
                 categoria: document.getElementById('f-cat').value,
                 imagen: document.getElementById('f-img').value.trim(),
@@ -1461,27 +1445,66 @@
                 stats
             };
 
-            const lista = cargar();
-            lista.push(v);
-            if (!guardar(lista)) {
-                alert('No pude guardarlo en este navegador, así que va a desaparecer al recargar la página.');
-            }
-
-            const card = crearTarjeta(v);
-            grid.insertBefore(card, addTile);
-            cerrarModal();
-
-            // si estás filtrando otra categoría, cambia a la del vehículo nuevo
-            if (filtroActual !== 'todos' && filtroActual !== v.categoria) {
-                document.querySelector('.filter-btn[data-filter="' + v.categoria + '"]').click();
+            let card;
+            if (editando) {
+                if (editando.esBase) {
+                    v.base = true;
+                    ediciones[v.id] = v;
+                    avisarSiFalla(guardarEdiciones());
+                } else {
+                    avisarSiFalla(guardar(cargar().map(x => x.id === v.id ? v : x)));
+                }
+                card = crearTarjeta(v);
+                editando.card.replaceWith(card);   // queda en el mismo lugar
             } else {
-                aplicarFiltro();
+                const lista = cargar();
+                lista.push(v);
+                avisarSiFalla(guardar(lista));
+                card = crearTarjeta(v);
+                grid.insertBefore(card, addTile);
             }
-            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            cerrarModal();
+            mostrarTarjeta(card, v.categoria);
+        });
+
+        // "Volver al original": descarta tus cambios en una tarjeta escrita en el código
+        restoreBtn.addEventListener('click', () => {
+            if (!editando || !editando.esBase) return;
+            const key = editando.id;
+            delete ediciones[key];
+            guardarEdiciones();
+            const orig = originales[key].cloneNode(true);
+            prepararBase(orig, key);
+            editando.card.replaceWith(orig);
+            cerrarModal();
+            aplicarFiltro();
         });
 
         /* ── arranque ── */
+        const conteo = {};
+        function claveBase(nombre) {
+            const slug = nombre.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            conteo[slug] = (conteo[slug] || 0) + 1;
+            return 'base:' + slug + '#' + conteo[slug];
+        }
+
+        function prepararBase(card, key) {
+            card.dataset.baseKey = key;
+            card.appendChild(botonEditar(card));
+        }
+
+        // tarjetas escritas en el código: les pone el botón de editar y aplica tus cambios guardados
+        document.querySelectorAll('.vehicle-card').forEach(card => {
+            const key = claveBase(card.querySelector('.vehicle-name').textContent);
+            originales[key] = card.cloneNode(true);
+            if (ediciones[key]) card.replaceWith(crearTarjeta(ediciones[key]));
+            else prepararBase(card, key);
+        });
+
+        // vehículos añadidos con el "+"
         cargar().forEach(v => grid.insertBefore(crearTarjeta(v), addTile));
+
         document.addEventListener('DOMContentLoaded', animarBarras);
     </script>
 </body>
